@@ -1,0 +1,26 @@
+import requests
+
+# GitLab settings
+gitlab_url = "https://gitlab.com"
+access_token = "glpat-zEeu7ngy68Jyy9ykm3qc"
+
+# Authorization headers
+headers = {
+    "Authorization": f"Bearer {access_token}"
+}
+
+# API endpoint to list projects
+url = f"{gitlab_url}/api/v4/projects"
+
+# Perform GET request
+response = requests.get(url, headers=headers)
+
+# Check the response
+if response.status_code == 200:
+    projects = response.json()
+    print("Projects:")
+    for project in projects:
+        print(f"  - {project['name']}")
+else:
+    print(f"Error: {response.status_code}")
+    print(response.text)
