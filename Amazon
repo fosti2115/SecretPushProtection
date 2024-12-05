@@ -1,0 +1,28 @@
+import boto3
+from botocore.exceptions import NoCredentialsError, PartialCredentialsError
+
+# AWS credentials
+aws_access_key_id = "AKIARZ5BMTYGTB5I2LDG"
+aws_secret_access_key = "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"
+
+# Create a session using the credentials
+session = boto3.Session(
+    aws_access_key_id=aws_access_key_id,
+    aws_secret_access_key=aws_secret_access_key
+)
+
+# Create an S3 client
+s3_client = session.client('s3')
+
+try:
+    # List all S3 buckets
+    response = s3_client.list_buckets()
+    print("S3 Buckets:")
+    for bucket in response['Buckets']:
+        print(f"  - {bucket['Name']}")
+except NoCredentialsError:
+    print("Error: No credentials provided.")
+except PartialCredentialsError:
+    print("Error: Incomplete credentials provided.")
+except Exception as e:
+    print(f"An error occurred: {e}")
