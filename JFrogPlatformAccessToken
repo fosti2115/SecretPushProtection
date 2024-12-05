@@ -1,0 +1,26 @@
+import requests
+
+# Ustawienia
+jfrog_url = "https://your-domain.jfrog.io/artifactory"
+repo_name = "your-repository"
+access_token = "cmVmdGtuOjAxOjE3NjQyMzQ5NTQ6ZzVkWjRwNGJiZE9HRXFTOWFueWdFTjdVY05r"
+
+# Nagłówki autoryzacyjne
+headers = {
+    "Authorization": f"Bearer {access_token}"
+}
+
+# Endpoint API do pobrania informacji o artefaktach
+url = f"{jfrog_url}/api/storage/{repo_name}"
+
+# Wykonanie żądania GET
+response = requests.get(url, headers=headers)
+
+# Sprawdzenie odpowiedzi
+if response.status_code == 200:
+    data = response.json()
+    print("Informacje o artefaktach:")
+    print(data)
+else:
+    print(f"Błąd: {response.status_code}")
+    print(response.text)
